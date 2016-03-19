@@ -10,12 +10,28 @@ TODO:
     - figure out how to deal with directories that do and don't exist
 --]]
 
-local files = {
+local links = {
     ".bash_profile",
     ".bashrc",
     ".gitconfig",
-    ".xintrc"
+    ".xintrc",
+    --
+    ".atom/config.cson",
+    ".atom/keymap.cson",
+    ".atom/packages"
 }
+
+local dirs = {
+    ".atom",
+    ".config"
+}
+
+function isLinked(f1, f2)
+    if lfs.attributes(f1, "ino") == lfs.attributes(f2, "ino")
+    and lfs.attributes(f1, "dev") == lfs.attributes(f2, "dev") then
+        return true
+    end
+end
 
 --Hacky check to see if this is being run from the right place
 if lfs.touch("dotfiles-install") ~= true then
@@ -26,9 +42,22 @@ end
 local home = os.getenv("HOME")
 local dots = lfs.currentdir()
 
-for k,v in pairs(files) do
-    if lfs.attributes(home.."/"..v, "ino") == lfs.attributes(dots.."/"..v, "ino")
-    and lfs.attributes(home.."/"..v, "dev") == lfs.attributes(dots.."/"..v, "dev") then
+--Make sure our directories exist
+for k,v in pairs(dirs) do
+   if lfs.touch(home.."/"..v) ~= true then
+       lfs.mkdir(home.."/"..v)
+   end
+end
+
+--Some special handling for a few things
+if not isLinked(home.."/.atom/packages", dots.."/.atom/packages") then
+    print("    Removing any existing atom packages;I hope you didn't want those!\n    ---")
+    os.execute("rm -rf "..home.."/.atom/packages")
+end 
+
+--Remove old congifs and replace with links; I hope you backed up!
+for k,v in pairs(links) do
+    if isLinked(home.."/"..v, dots.."/"..v) then
 	print("    Leaving "..home.."/"..v.."; it's already linked.")
     else
         print("    Replacing "..home.."/"..v.." with a link.")
