@@ -18,6 +18,7 @@ local links = {
     ".Xresources",
     --
     ".config/user-dirs.dirs",
+    ".config/awesome", --Note: see special handling below
     --
     ".atom/config.cson",
     ".atom/keymap.cson",
@@ -54,9 +55,14 @@ end
 
 --Special Handling for .atom/packages
 if not isLinked(home.."/.atom/packages", dots.."/.atom/packages") then
-    print("    Removing any existing atom packages;I hope you didn't want those!\n    ---")
+    print("    Removing any existing atom packages; I hope you didn't want those!\n    ---")
     os.execute("rm -rf "..home.."/.atom/packages")
-end 
+end
+
+if not isLinked(home.."/.config/awesome", dots.."/.config/awesome") then
+    print("    Removing your .config/awesome stuff; sorry!\n    ---")
+    os.execute("rm -rf "..home.."/.config/awesome")
+end
 
 --Remove old congifs and replace with links; I hope you backed up!
 for k,v in pairs(links) do
