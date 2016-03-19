@@ -1,0 +1,37 @@
+#!/usr/bin/lua
+local lfs = require "lfs"
+
+--WARNING: This will delete files in your home directory and replace them with symlinks to the directory you call this from!
+
+--[[
+TODO:
+    - autogenerate file list?
+    - pre-run warning with y/n
+    - figure out how to deal with directories that do and don't exist
+--]]
+
+local files = {
+    ".bash_profile",
+    ".bashrc",
+    ".gitconfig",
+    ".xintrc"
+}
+
+--Hacky check to see if this is being run from the right place
+if lfs.touch("dotfiles-install") ~= true then
+    print("Please run this file from it's directory, or I can't stop it from fucking things up.")
+    return
+end 
+
+local home = os.getenv("HOME")
+local dots = lfs.currentdir()
+
+for k,v in pairs(files) do
+    lfs.chdir(dots)
+    print("replacing "..home.."/"..v)
+    os.remove(home.."/"..v)
+    lfs.chdir(home)
+    lfs.link(dots.."/"..v, v, true)
+end
+
+print("Okay, it's done. I hope it went well!")
