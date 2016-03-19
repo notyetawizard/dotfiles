@@ -15,10 +15,13 @@ local links = {
     ".bashrc",
     ".gitconfig",
     ".xintrc",
+    ".Xresources",
+    --
+    ".config/user-dirs.dirs",
     --
     ".atom/config.cson",
     ".atom/keymap.cson",
-    ".atom/packages"
+    ".atom/packages" --Note: see special handling below
 }
 
 local dirs = {
@@ -49,7 +52,7 @@ for k,v in pairs(dirs) do
    end
 end
 
---Some special handling for a few things
+--Special Handling for .atom/packages
 if not isLinked(home.."/.atom/packages", dots.."/.atom/packages") then
     print("    Removing any existing atom packages;I hope you didn't want those!\n    ---")
     os.execute("rm -rf "..home.."/.atom/packages")
