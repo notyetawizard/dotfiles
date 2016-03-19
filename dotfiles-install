@@ -27,11 +27,16 @@ local home = os.getenv("HOME")
 local dots = lfs.currentdir()
 
 for k,v in pairs(files) do
-    lfs.chdir(dots)
-    print("replacing "..home.."/"..v)
-    os.remove(home.."/"..v)
-    lfs.chdir(home)
-    lfs.link(dots.."/"..v, v, true)
+    if lfs.attributes(home.."/"..v, "ino") == lfs.attributes(dots.."/"..v, "ino")
+    and lfs.attributes(home.."/"..v, "dev") == lfs.attributes(dots.."/"..v, "dev") then
+	print("    Leaving "..home.."/"..v.."; it's already linked.")
+    else
+        print("    Replacing "..home.."/"..v.." with a link.")
+        lfs.chdir(dots)
+        os.remove(home.."/"..v)
+        lfs.chdir(home)
+        lfs.link(dots.."/"..v, v, true)
+    end
 end
 
 print("Okay, it's done. I hope it went well!")
