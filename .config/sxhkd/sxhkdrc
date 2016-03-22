@@ -1,0 +1,144 @@
+#################
+# bspwm hotkeys #
+#################
+
+super + alt + Escape
+	bspc quit
+
+# cancel preselect
+# and sxhkd config reload
+super + Escape
+	bspc node -p cancel &\
+	pkill -USR1 -x sxhkd
+
+#Close focused window
+super + q
+	bspc node -c
+	
+super + d
+	bspc node -s biggest
+
+super + {_,shift +,ctrl +} {h,t,n,s}
+	bspc node -{f,s,p} {west,north,south,east}
+	
+#reset split in direction
+super + {g,c,r,l}
+	bspc node @{west,north,south,east} -B 
+
+#Will need to create a much fancier script, I think;
+#Should probably just move all input handling into it!
+super + shift + {g,c,r,l}
+	bspc node @{west,north,south,east} -r 0.65 
+
+#Focus on desktop by number, ctrl to send window to
+super + {1-4}
+	bspc desktop -f ^{1-4}
+
+super + shift + {1-4}
+	bspc node -d ^{1-4}
+
+#Play with the gaps
+super + {bracketleft, bracketright}
+	bspc config -d focused window_gap $((`bspc config -d focused window_gap` {+ 4, - 4} ))
+
+#Reset gaps to default or no gap "fake fullscreen"
+super + {0, 9}
+	bspc config -d focused window_gap {-4, 16}
+
+#Mouse focus, sizing, moving
+~button1
+	bspc pointer -g focus
+
+#super + button{1-3}
+#	bspc pointer -g {move, resize_side, resize_corner}
+
+#super + !button{1-3}
+#	bspc pointer -t %i %i
+
+
+###################################
+# (mostly) wm independent hotkeys #
+###################################
+
+super + Return
+	urxvt
+
+super + o ; {w,a}
+	{chromium, atom}
+
+################
+# Special Keys #
+################
+
+XF86AudioMute
+	amixer set Master toggle
+
+#Volume
+XF86Audio{Lower,Raise}Volume
+	amixer set Master 5%{-,+} unmute &\
+	notify-send -h int:value:"`amixer get Master | grep Mono: | cut -c22-24`" Volume
+
+shift + XF86Audio{Lower,Raise}Volume
+	amixer set Master 20%{-,+} unmute &\
+	notify-send -h int:value:"`amixer get Master | grep Mono: | cut -c22-24`" Volume ""
+
+XF86AudioMicMute
+	amixer set Capture toggle
+
+XF86MonBrightness{Down,Up}
+	xbacklight -{dec,inc} 2
+
+shift + XF86MonBrightness{Down,Up}
+	xbacklight -{dec,inc} 10
+
+#Change to Dark or Light Solarized themes for .Xresources, notifications
+super + XF86MonBrightness{Down,Up}
+	~/.config/sxhkd/superTheming.sh {Dark,Light}
+
+XF86Display
+	feh --randomize --bg-fill ~/visual/wallpaper/no-mans-sky/*
+
+shift + XF86Display
+	feh --bg-fill ~/visual/wallpaper/no-mans-sky/NewEridu.png
+
+#XF86WLAN seems to softblock wlan at BIOS level,
+#But no options are available for it. Boo.
+
+######
+#Notifications/Tools section, some neat stuff here
+######
+
+XF86Tools; t
+	notify-send Time "It is now <b>`date +%H:%M`</b> on <b>`date +%A`</b>, <b>`date +%Y/%m/%d`</b>."
+
+XF86Tools; f
+	notify-send Sensors "Internal temperature is <b>`sensors | grep -A 0 temp1 | cut -c16-21`</b> with fans at <b>`sensors | grep -A 0 fan | cut -c14-21`</b>."
+
+XF86Tools; b
+	notify-send Power "`acpi | grep "Battery 0"`\n       `acpi | grep "Battery 1"`"
+
+XF86Tools; p
+	notify-send Ping "\n`ping -c1 8.8.8.8`"
+
+XF86Tools; n
+	notify-send "Notes" "\n`cat ~/notes`"
+
+XF86Tools; u
+	notify-send Updates "\n`pacman -Qqu`"
+
+#XF86Tools; s
+#List shortcut keys, for when you forget (you will)
+
+######
+#wm independant cont.
+######
+
+XF86Search
+	dmenu_run
+
+{XF86LaunchA,XF86Explorer}
+	bspc node -t ~{fullscreen,floating}
+
+#Trackpoint to arrowkeys
+{_, shift +, ctrl +, super +, alt +} button{10,11,12,13}
+	xdotool key {_,_,_,_,_}{Left,Right,Up,Down}

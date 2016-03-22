@@ -14,11 +14,13 @@ local links = {
     ".bash_profile",
     ".bashrc",
     ".gitconfig",
-    ".xintrc",
+    ".xinitrc",
     ".Xresources",
+    ".wallpaper.png",
     --
     ".config/user-dirs.dirs",
-    ".config/awesome", --Note: see special handling below
+    ".config/sxhkd", --Note: see special handling below
+    ".config/bspwm", --Note: see special handling below
     --
     ".atom/config.cson",
     ".atom/keymap.cson",
@@ -53,15 +55,20 @@ for k,v in pairs(dirs) do
    end
 end
 
---Special Handling for .atom/packages
+--Special Handling for some stuff; should be made into a list, probably.
 if not isLinked(home.."/.atom/packages", dots.."/.atom/packages") then
     print("    Removing any existing atom packages; I hope you didn't want those!\n    ---")
     os.execute("rm -rf "..home.."/.atom/packages")
 end
 
-if not isLinked(home.."/.config/awesome", dots.."/.config/awesome") then
-    print("    Removing your .config/awesome stuff; sorry!\n    ---")
-    os.execute("rm -rf "..home.."/.config/awesome")
+if not isLinked(home.."/.config/sxhkd", dots.."/.config/sxhkd") then
+    print("    Removing your .config/sxhkd stuff; sorry!\n    ---")
+    os.execute("rm -rf "..home.."/.config/sxhkd")
+end
+
+if not isLinked(home.."/.config/bspwm", dots.."/.config/bspwm") then
+    print("    Removing your .config/bspwm stuff; sorry!\n    ---")
+    os.execute("rm -rf "..home.."/.config/bspwm")
 end
 
 --Remove old congifs and replace with links; I hope you backed up!
