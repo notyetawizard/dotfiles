@@ -36,23 +36,6 @@
     zoomFontWhenCtrlScrolling: false
     fontSize: 13
     fontFamily: "Hack"
-  "block-cursor":
-    primaryColor:
-      red: 24
-      green: 81
-      blue: 119
-      alpha: 1
-    secondaryColor:
-      red: 24
-      green: 81
-      blue: 119
-      alpha: 1
-    blinkInterval: 0
-    global:
-      blinkOff:
-        borderWidth: 0
-      blinkOn:
-        borderWidth: 0
   "love-launcher":
     lovepath: "love"
   "highlight-line":
@@ -74,6 +57,12 @@
   "character-table":
     mnemonicAllowReversed: false
   "spell-check": {}
+  "block-cursor":
+    global:
+      blinkOff: {}
+      blinkOn: {}
+    primaryColor: {}
+    secondaryColor: {}
 ".lua.source":
   editor:
     preferredLineLength: 90
