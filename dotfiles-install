@@ -19,6 +19,7 @@ local links = {
     ".wallpaper.png",
     --
     ".config/user-dirs.dirs",
+    ".config/comptonrc",
     ".config/sxhkd", --Note: see special handling below
     ".config/bspwm", --Note: see special handling below
     --
