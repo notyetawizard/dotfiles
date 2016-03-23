@@ -28,7 +28,7 @@ URxvt*.secondaryScroll: 0
 !Scheme: Ethan Schoonover (http://ethanschoonover.com/solarized)
 
 *.foreground:   base05
-*.background:   [90]#002b36
+*.background:   [100]#002b36
 *.cursorColor:  base05
 
 *.color0:       base00

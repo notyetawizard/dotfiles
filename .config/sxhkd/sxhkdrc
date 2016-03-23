@@ -70,6 +70,7 @@ super + o ; {w,a}
 # Special Keys #
 ################
 
+#Redo audio for pulseaudio?
 XF86AudioMute
 	amixer set Master toggle
 
@@ -85,24 +86,21 @@ shift + XF86Audio{Lower,Raise}Volume
 XF86AudioMicMute
 	amixer set Capture toggle
 
-XF86MonBrightness{Down,Up}
-	xbacklight -{dec,inc} 2
+XF86MonBrightness{Down,Up} {_, + ctrl, + shift}
+	xbacklight -{dec,inc} {8, 2, 16}
 
-shift + XF86MonBrightness{Down,Up}
-	xbacklight -{dec,inc} 10
-
-#Change to Dark or Light Solarized themes for .Xresources, notifications
+#Manual redshifting!
 super + XF86MonBrightness{Down,Up}
-	~/.config/sxhkd/superTheming.sh {Dark,Light}
+	redshift -O {2500, 6500} -b 0.9
 
-XF86Display
-	feh --randomize --bg-fill ~/visual/wallpaper/no-mans-sky/*
+#XF86Display
+#	feh --randomize --bg-fill ~/visual/wallpaper/no-mans-sky/*
 
-shift + XF86Display
-	feh --bg-fill ~/visual/wallpaper/no-mans-sky/NewEridu.png
+#shift + XF86Display
+#	feh --bg-fill ~/visual/wallpaper/no-mans-sky/NewEridu.png
 
 #XF86WLAN seems to softblock wlan at BIOS level,
-#But no options are available for it. Boo.
+#But no options are available for it because of that. Boo.
 
 ######
 #Notifications/Tools section, some neat stuff here
