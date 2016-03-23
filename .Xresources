@@ -5,8 +5,8 @@ URxvt*.font: xft: Hack:size=10
 URxvt*.letterSpace: 0.8
 URxvt*.secondaryScreen: 1
 URxvt*.secondaryScroll: 0
-!Base16 Color definitions
 
+!Base16 Color definitions
 #define base00 #002b36
 #define base01 #073642
 #define base02 #586e75
@@ -23,7 +23,6 @@ URxvt*.secondaryScroll: 0
 #define base0D #268bd2
 #define base0E #6c71c4
 #define base0F #d33682
-
 !Base16 Solarized Dark
 !Scheme: Ethan Schoonover (http://ethanschoonover.com/solarized)
 
@@ -48,5 +47,3 @@ URxvt*.secondaryScroll: 0
 *.color13:      base06
 *.color14:      base0F
 *.color15:      base07
-
-dzen2*.background:   #002b36
