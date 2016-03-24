@@ -15,8 +15,8 @@ super + Escape
 super + q
 	bspc node -c
 	
-super + d
-	bspc node -s biggest
+super + {_,shift +} d
+	bspc node -{f,s} biggest
 
 super + {_,shift +,ctrl +} {h,t,n,s}
 	bspc node -{f,s,p} {west,north,south,east}
