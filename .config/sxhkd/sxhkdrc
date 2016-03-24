@@ -93,11 +93,8 @@ XF86MonBrightness{Down,Up} {_, + ctrl, + shift}
 super + XF86MonBrightness{Down,Up}
 	redshift -O {2500, 6500} -b 0.9
 
-#XF86Display
-#	feh --randomize --bg-fill ~/visual/wallpaper/no-mans-sky/*
-
-#shift + XF86Display
-#	feh --bg-fill ~/visual/wallpaper/no-mans-sky/NewEridu.png
+{super +,_} XF86Display
+	scrot {_,-s}
 
 #XF86WLAN seems to softblock wlan at BIOS level,
 #But no options are available for it because of that. Boo.
