@@ -70,8 +70,8 @@ haskellGrammar =
       |(?:(?!deriving)(?:[\w()'→⇒\[\],]|->|=>)+\s*)+ #anything goes!
       )
       ///
-    ctor: concat /\b({className})\s+/,
-      listMaybe('ctorArgs', /{ctorArgs}/, /\s+/)
+    ctor: concat /\b({className})\b/,
+      listMaybe('ctorArgs', /\s+{ctorArgs}/, '')
     typeDeclOne: /(?:(?!\bwhere(?!')\b)(?:{className}|{functionName}))/
     typeDecl: '(?>(?:{typeDeclOne})(?:\\s+{typeDeclOne})*)'
     indentChar: /[ \t]/
@@ -511,7 +511,7 @@ haskellGrammar =
       begin: /\{-#/
       end: /#-\}/
       patterns: [
-          match: /\b(LANGUAGE|UNPACK|INLINE|OPTIONS_GHC)(?!')\b/
+          match: /\b(LANGUAGE|OPTIONS_GHC|INCLUDE|WARNING|DEPRECATED|INLINE|NOINLINE|ANN|LINE|RULES|SPECIALIZE|UNPACK|SOURCE)(?!')\b/
           name: 'keyword.other.preprocessor.haskell'
       ]
     function_type_declaration:

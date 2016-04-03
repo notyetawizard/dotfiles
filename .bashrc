@@ -2,4 +2,5 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
+alias qjoypad='qjoypad --notray'
 PS1='[\u@\h \W]\$ '

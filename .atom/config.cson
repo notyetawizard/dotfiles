@@ -24,18 +24,25 @@
       "language-clojure"
       "open-on-github"
       "minimap"
+      "autocomplete-atom-api"
+      "autocomplete-css"
+      "autocomplete-html"
+      "autocomplete-plus"
+      "autocomplete-snippets"
+      "incompatible-packages"
     ]
     excludeVcsIgnoredPaths: false
   editor:
     invisibles: {}
     tabLength: 4
-    softWrap: true
-    softWrapAtPreferredLineLength: true
     scrollPastEnd: true
     showIndentGuide: true
     zoomFontWhenCtrlScrolling: false
     fontSize: 13
     fontFamily: "Hack"
+    softWrap: true
+    softWrapAtPreferredLineLength: true
+    softWrapHangingIndent: 2
   "love-launcher":
     lovepath: "love"
   "highlight-line":
@@ -44,7 +51,8 @@
     enableBackgroundColor: false
   minimap:
     displayMinimapOnLeft: true
-  "tree-view": {}
+  "tree-view":
+    hideVcsIgnoredFiles: true
   "git-diff": {}
   whitespace:
     removeTrailingWhitespace: false
